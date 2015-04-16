@@ -29,69 +29,6 @@ function isChecked($val1, $val2)
 	}
 	return $value;
 }
-function selectColorGroup($id = "")
-{
-	$c =& get_instance();
-	$option = "<option value='0'>Choose color...</option>";
-	$select = "";
-	$rs = $c->color_model->get_group();
-	if($rs != false)
-	{
-		foreach($rs as $ro)
-		{
-			if($ro->active != 0)
-			{
-				if($ro->id_color_group == $id){ $select = "selected='selected'"; }else{ $select = ""; }
-				$option .= "<option value='".$ro->id_color_group."' ".$select." >".$ro->group_name."</option>";
-			}
-		}
-	}
-	return $option;
-}
-
-function selectCategory($id="")
-{
-	$c =& get_instance();
-	$option ="<option value='1'>HOME</option>";
-	$rs = $c->db->order_by("category_name", "asc")->get_where("tbl_category", array("id_category !="=>1));
-	if($rs->num_rows() >0)
-	{
-		foreach($rs->result() as $ro)
-		{
-			if($ro->id_category == $id){ $select = "selected='selected'"; }else{ $select = ""; }
-			$option .= "<option value='".$ro->id_category."' ".$select.">".$ro->category_name."</option>";
-		}
-	}
-	return $option;
-}
-
-function getColorGroup($id)
-{
-	$c =& get_instance();
-	$value = "";
-	$rs = $c->db->select("group_name")->get_where("tbl_color_group", array("id_color_group"=>$id), 1);
-	if($rs->num_rows == 1)
-	{
-		return $rs->row()->group_name;
-	}else{
-		return $value;
-	}
-}
-	
-
-function getParentCategoryName($id_parent)
-{
-	$c =& get_instance();
-	$name = "";
-	$rs = $c->db->select("category_name")->get_where("tbl_category", array("id_category"=>$id_parent), 1);
-	if($rs->num_rows == 1)
-	{
-		$name = $rs->row()->category_name;
-	}
-	return $name;
-}
-
-
 
 function getEmployeeNameByIdUser($id_user)
 {
@@ -105,15 +42,43 @@ function getEmployeeNameByIdUser($id_user)
 	return $name;	
 }
 
-function getCategoryById($id_category)
+function getEmployeeNameByIdAdmin($id_user)
 {
 	$c =& get_instance();
 	$name = "";
-	$rs = $c->db->select("category_name")->get_where("tbl_category", array("id_category"=>$id_category), 1);
+	$rs = $c->db->select("first_name")->join("tbl_employee","tbl_employee.id_employee = tbl_admin.id_employee")->get_where("tbl_admin", array("id_admin"=>$id_user),1);
 	if($rs->num_rows() == 1)
 	{
-		$name = $rs->row()->category_name;
+		$name = $rs->row()->first_name;
 	}
-	return $name;
+	return $name;	
+}
+
+function getTypeName($id_type)
+{
+	$c =& get_instance();
+	$name = "";
+	$rs = $c->db->select("type_name")->get_where("tbl_site_type", array("id_site_type"=>$id_type),1);
+	if($rs->num_rows() == 1)
+	{
+		$name = $rs->row()->type_name;
+	}
+	return $name;	
+}
+
+function selectSiteType($id="")
+{
+	$c =& get_instance();
+	$option = "<option value='0'>Plase choose one</option>";
+	$rs = $c->db->get("tbl_site_type");
+	if($rs->num_rows() >0)
+	{
+		foreach($rs->result() as $ro)
+		{
+			if($ro->id_site_type == $id){ $select = "selected='selected'"; }else{ $select = ""; }
+			$option .= "<option value='".$ro->id_site_type."' ".$select.">".$ro->type_name."</option>";
+		}
+	}
+	return $option;
 }
 ?>

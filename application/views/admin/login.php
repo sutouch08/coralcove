@@ -63,7 +63,7 @@
 
 											<div class="space-6"></div>
 
-											<?php echo form_open("backend/authentication/validate_credentials"); ?>
+											<?php echo form_open("admin/authentication/validate_credentials"); ?>
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">

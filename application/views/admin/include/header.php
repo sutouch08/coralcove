@@ -1,4 +1,4 @@
-<?php if($this->session->userdata("id_user") == null){ redirect(base_url()."authentication"); } ?>
+<?php if($this->session->userdata("id_admin") == null){ redirect(base_url()."admin/authentication"); } ?>
 <?php  
 			$language = $this->session->userdata("lang") == null?"english": $this->session->userdata("lang");
 			$this->lang->load($language,$language);	
@@ -327,7 +327,7 @@
 								<img class="nav-user-photo" src="<?php echo base_url(); ?>assets/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
-									<?php echo getEmployeeNameByIdUser($this->session->userdata("id_user")); ?>
+									<?php echo getEmployeeNameByIdAdmin($this->session->userdata("id_admin")); ?>
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -351,7 +351,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="<?php echo base_url(); ?>authentication/logout">
+									<a href="<?php echo base_url(); ?>admin/authentication/logout">
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
 									</a>
@@ -413,7 +413,7 @@
 				</div><!-- /.sidebar-shortcuts -->
            
 				<!--- side menu  ------.>
-				<?php $this->load->view("include/side_menu"); ?>
+				<?php $this->load->view("admin/include/side_menu"); ?>
 
 
 				<!-- #section:basics/sidebar.layout.minimize -->
