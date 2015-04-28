@@ -34,7 +34,7 @@ function getEmployeeNameByIdUser($id_user)
 {
 	$c =& get_instance();
 	$name = "";
-	$rs = $c->db->select("first_name")->join("tbl_employee","tbl_employee.id_employee = tbl_user.id_employee")->get_where("tbl_user", array("id_user"=>$id_user),1);
+	$rs = $c->db->select("first_name")->join("tbl_employee","tbl_employee.id_employee = tbl_user.id_emp")->get_where("tbl_user", array("id_user"=>$id_user),1);
 	if($rs->num_rows() == 1)
 	{
 		$name = $rs->row()->first_name;
